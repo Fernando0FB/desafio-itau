@@ -14,11 +14,14 @@ public class TransacaoService {
     @Autowired
     private TransacaoRepository transacaoRepository;
 
-
     public Transacao save(Transacao transacao) {
         if(transacao.getValor() == null || transacao.getDataHora() == null || transacao.getValor().compareTo(BigDecimal.ZERO) < 0 || transacao.getDataHora().isAfter(OffsetDateTime.now())) {
             throw new TransacaoInvalidaException();
         }
         return transacaoRepository.save(transacao);
+    }
+
+    public void deleteAll() {
+        transacaoRepository.deleteAll();
     }
 }
